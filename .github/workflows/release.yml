@@ -49,16 +49,24 @@ jobs:
             --target "$GITHUB_SHA" --title "whoseware v$v" --notes "$(zig-out/whoseware --about)"
           echo "new=1" >> "$GITHUB_OUTPUT"
           echo "sha=$(sha256sum "whoseware-$v-src.tar.gz" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      # Runs whenever the AUR is behind VERSION (also after a failed push).
       - name: Push to the AUR
-        if: steps.rel.outputs.new == '1'
         env:
           KEY: ${{ secrets.AUR_SSH_KEY }}
-          SHA: ${{ steps.rel.outputs.sha }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           v=$(cat VERSION)
-          mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/aur && chmod 600 ~/.ssh/aur
-          echo "$AUR_HOSTKEY" > ~/.ssh/known_hosts
-          printf 'Host aur.archlinux.org\n  IdentityFile ~/.ssh/aur\n  User aur\n' > ~/.ssh/config
+          aur=$(curl -fsS "https://aur.archlinux.org/rpc/v5/info?arg[]=whoseware" | sed -n 's/.*"Version":"\([^"]*\)".*/\1/p')
+          if [ "$aur" = "$v-1" ]; then echo "AUR already has $aur"; exit 0; fi
+          # the source tarball's checksum, from the release (this run or an earlier one)
+          SHA=$(gh release download "v$v" -p SHA256SUMS -O - | awk -v f="whoseware-$v-src.tar.gz" '$2 == f {print $1}')
+          [ -n "$SHA" ] || { echo "no checksum for whoseware-$v-src.tar.gz"; exit 1; }
+          # In containers $HOME isn't root's home, which is where ssh looks:
+          # name the key and the pinned host key explicitly.
+          d=$HOME/.ssh && mkdir -p "$d"
+          printf '%s\n' "$KEY" > "$d/aur" && chmod 600 "$d/aur"
+          echo "$AUR_HOSTKEY" > "$d/known_hosts"
+          export GIT_SSH_COMMAND="ssh -i $d/aur -o IdentitiesOnly=yes -o UserKnownHostsFile=$d/known_hosts -o StrictHostKeyChecking=yes"
           git clone ssh://aur@aur.archlinux.org/whoseware.git aur
           sed -e "s/@VERSION@/$v/" -e "s/@SHA256@/'$SHA'/" pkg/PKGBUILD > aur/PKGBUILD
           # makepkg refuses to run as root
