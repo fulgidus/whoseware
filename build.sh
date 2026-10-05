@@ -35,7 +35,7 @@ if [ "$GRAPH" = 1 ]; then
     echo ":: building the entity graph"
     $ZIG build-exe $TARGET -O ReleaseSafe -I vendor/libsql src/build_db.zig build/libsql.o -lc -femit-bin=build/build_db
     build/build_db --out src/gen/entities.db --verdicts data/verdicts.json --relations data/relations.json \
-        --fashware build/lists/fashware.md --weird-guys build/lists/weird-guys.html
+        --tags data/tags.json --fashware build/lists/fashware.md --weird-guys build/lists/weird-guys.html
 fi
 
 echo ":: building whoseware"

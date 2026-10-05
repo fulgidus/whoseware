@@ -47,6 +47,9 @@ far-right:
 - [~rabbits/fashware](https://git.sr.ht/~rabbits/fashware)
 - [weird little guys of FOSS](https://drewdevault.com/weird-guys/) (Drew DeVault)
 
+(More sources are planned: forge ownership and funding, funder pages, public
+contract and enforcement records. See Categories and Sources below.)
+
 ```
 $ whoseware neovim terraform helix
 neovim                 HIT   adjacency: maintainer Justin M. Keyes is on the weird-guys list (…)
@@ -68,13 +71,62 @@ For each package it reports, in order:
    search ranked by BM25, plus hashed-trigram vector similarity — reported as
    MAYBE with its similarity. Unverified by definition: check the chain.
 
+## Categories
+
+Everything in the graph can carry categories, each with the reason it was given:
+
+| category | what it covers |
+|---|---|
+| `fascism` | dictatorial or authoritarian politics, far-right movements |
+| `racism` | racism, antisemitism, white-supremacist and ethno-nationalist views or funding |
+| `bigotry` | transphobia, homophobia, misogyny |
+| `militarism` | arms makers, war profiteering, military and border-enforcement contracting |
+| `surveillance` | mass surveillance, spyware, face recognition, data brokering |
+| `ultracapitalism` | billionaires, and companies with serious labour-law violations (wealth and penalty data: planned; today only what the lists say) |
+| `misconduct` | harassment, abuse, fraud, rug-pulls |
+
+A tag is **firm** when it is the list's own definition or checked by hand, and
+**inferred** (marked `~`) when it comes from keyword rules over an entry's
+text. Inferred tags are leads, not verdicts: `whoseware who NAME` shows the
+sentence each one rests on. Rules, corrections and suppressions live in
+`data/tags.json`.
+
+The first time you run whoseware in a terminal it asks which categories to
+flag and whether inferred tags count (Enter accepts everything). Change it
+with `whoseware setup`; `whoseware tags` shows what is on. Packages flagged
+only under categories you turned off are shown as `off`, never silently
+dropped. Scripts, CI and the pacman hook flag everything until you choose.
+
+## Look things up offline
+
+Each entity carries its sources' own text and links in the binary, so no network
+is needed:
+
+```
+whoseware who "Justin Keyes"        # tags and why, the entry's text, links, connections
+whoseware search surveillance       # full-text, ranked by BM25, matches highlighted
+whoseware search --tag racism ethnic
+```
+
+## Sources and attribution
+
+The graph is built from [~rabbits/fashware](https://git.sr.ht/~rabbits/fashware)
+and Drew DeVault's [weird little guys of FOSS](https://drewdevault.com/weird-guys/).
+**Neither states a licence.** Their text is included with attribution and links
+(every `who` shows where each sentence came from); if an author objects it is
+removed in the next release. Every claim about a person or company stays
+attributed to its source: whoseware reports what the lists say, with the
+reason.
+
 ## Usage
 
 ```
 whoseware PACKAGE…            verdicts for these packages
 whoseware --system            every explicitly installed package (pacman -Qqe)
 whoseware --fail-on-hit …     exit 1 if anything is a HIT (for CI)
-whoseware --about             what the embedded graph contains
+whoseware --about             what the embedded graph contains, and its sources
+whoseware setup | tags        choose / show the categories to flag
+whoseware who NAME | search WORDS…    offline look-ups (see below)
 ```
 
 The pacman hook (`hooks/whoseware.hook`) runs it after every install or

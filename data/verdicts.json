@@ -31,6 +31,9 @@
    "status": "reported",
    "alternatives": [
     "tenacity"
+   ],
+   "tags": [
+    "misconduct"
    ]
   },
   "autotiling": {
@@ -56,6 +59,15 @@
    "status": "verified",
    "alternatives": [
     "none comparable"
+   ],
+   "entities": [
+    "company:NVIDIA",
+    "company:Microsoft",
+    "company:AMD",
+    "company:Intel",
+    "company:Meta",
+    "company:Dell",
+    "company:Adobe"
    ]
   },
   "blueman": {
@@ -75,6 +87,9 @@
    "status": "verified",
    "alternatives": [
     "none: every engine is Mozilla's, Google's or Apple's"
+   ],
+   "entities": [
+    "person:Brendan Eich"
    ]
   },
   "chezmoi": {
@@ -93,6 +108,9 @@
    "status": "verified",
    "alternatives": [
     "none: every engine is Mozilla's, Google's or Apple's"
+   ],
+   "entities": [
+    "company:Google"
    ]
   },
   "code": {
@@ -107,6 +125,9 @@
    "alternatives": [
     "helix",
     "vim"
+   ],
+   "entities": [
+    "company:Microsoft"
    ]
   },
   "dmenu": {
@@ -123,6 +144,10 @@
     "sway",
     "fuzzel",
     "wezterm"
+   ],
+   "entities": [
+    "company:Suckless",
+    "person:Laslo Hunhold"
    ]
   },
   "docker": {
@@ -154,6 +179,10 @@
     "sway",
     "fuzzel",
     "wezterm"
+   ],
+   "entities": [
+    "company:Suckless",
+    "person:Laslo Hunhold"
    ]
   },
   "dwm": {
@@ -170,6 +199,10 @@
     "sway",
     "fuzzel",
     "wezterm"
+   ],
+   "entities": [
+    "company:Suckless",
+    "person:Laslo Hunhold"
    ]
   },
   "element-desktop": {
@@ -180,7 +213,10 @@
     "https://git.sr.ht/~rabbits/fashware"
    ],
    "date": "2026-10-05",
-   "status": "verified"
+   "status": "verified",
+   "entities": [
+    "company:Element"
+   ]
   },
   "emacs": {
    "tier": "hit",
@@ -194,6 +230,9 @@
    "alternatives": [
     "helix",
     "vim"
+   ],
+   "entities": [
+    "person:Richard M. Stallman"
    ]
   },
   "ffmpeg": {
@@ -213,6 +252,9 @@
    "status": "verified",
    "alternatives": [
     "none: every engine is Mozilla's, Google's or Apple's"
+   ],
+   "entities": [
+    "person:Brendan Eich"
    ]
   },
   "fish": {
@@ -253,6 +295,9 @@
    "alternatives": [
     "wezterm",
     "foot"
+   ],
+   "entities": [
+    "person:Mitchell Hashimoto"
    ]
   },
   "gimp": {
@@ -310,6 +355,9 @@
    "alternatives": [
     "sway",
     "niri"
+   ],
+   "entities": [
+    "person:Rafał Kucharski"
    ]
   },
   "imagemagick": {
@@ -341,7 +389,10 @@
     "https://git.sr.ht/~rabbits/fashware"
    ],
    "date": "2026-10-05",
-   "status": "verified"
+   "status": "verified",
+   "entities": [
+    "person:Andreas Kling"
+   ]
   },
   "libreoffice-fresh": {
    "tier": "hit",
@@ -355,6 +406,9 @@
    "alternatives": [
     "gnumeric",
     "abiword"
+   ],
+   "entities": [
+    "company:Oracle"
    ]
   },
   "libreoffice-still": {
@@ -369,6 +423,9 @@
    "alternatives": [
     "gnumeric",
     "abiword"
+   ],
+   "entities": [
+    "company:Oracle"
    ]
   },
   "librewolf": {
@@ -383,6 +440,9 @@
    "status": "verified",
    "alternatives": [
     "none: every engine is Mozilla's, Google's or Apple's"
+   ],
+   "entities": [
+    "person:Brendan Eich"
    ]
   },
   "linux": {
@@ -421,7 +481,10 @@
     "https://git.sr.ht/~rabbits/fashware"
    ],
    "date": "2026-10-05",
-   "status": "verified"
+   "status": "verified",
+   "entities": [
+    "person:David Heinemeier Hansson"
+   ]
   },
   "neovim": {
    "tier": "hit",
@@ -435,6 +498,9 @@
    "alternatives": [
     "helix",
     "vim"
+   ],
+   "entities": [
+    "person:Justin M. Keyes"
    ]
   },
   "niri": {
@@ -474,6 +540,9 @@
    "status": "verified",
    "alternatives": [
     "docker"
+   ],
+   "entities": [
+    "company:IBM"
    ]
   },
   "python": {
@@ -512,6 +581,10 @@
     "sway",
     "fuzzel",
     "wezterm"
+   ],
+   "entities": [
+    "company:Suckless",
+    "person:Laslo Hunhold"
    ]
   },
   "st": {
@@ -528,6 +601,10 @@
     "sway",
     "fuzzel",
     "wezterm"
+   ],
+   "entities": [
+    "company:Suckless",
+    "person:Laslo Hunhold"
    ]
   },
   "starship": {
@@ -589,6 +666,9 @@
    "alternatives": [
     "aerc",
     "neomutt"
+   ],
+   "entities": [
+    "person:Brendan Eich"
    ]
   },
   "vim": {
@@ -607,6 +687,9 @@
    "status": "verified",
    "alternatives": [
     "none: every engine is Mozilla's, Google's or Apple's"
+   ],
+   "entities": [
+    "company:Google"
    ]
   },
   "waybar": {
