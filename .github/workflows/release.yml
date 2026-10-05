@@ -72,6 +72,7 @@ jobs:
           # makepkg refuses to run as root
           useradd -m builder && chown -R builder aur
           su builder -c "cd aur && makepkg --printsrcinfo > .SRCINFO"
+          git config --global --add safe.directory "$PWD/aur"   # now owned by builder
           cd aur
           git config user.name fulgidus && git config user.email fulgidus@users.noreply.github.com
           git add PKGBUILD .SRCINFO
