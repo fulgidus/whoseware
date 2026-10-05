@@ -111,7 +111,18 @@ pub const schema =
     \\  name TEXT NOT NULL,
     \\  aliases TEXT NOT NULL DEFAULT '',
     \\  note TEXT NOT NULL DEFAULT '',
+    \\  description TEXT NOT NULL DEFAULT '',  -- the sources' own text, full
+    \\  links TEXT NOT NULL DEFAULT '',        -- source URLs, one per line
     \\  emb F32_BLOB(64)             -- hashed trigram vector of the name (ngram.zig)
+    \\);
+    \\CREATE TABLE tag_def (tag TEXT PRIMARY KEY, title TEXT NOT NULL, description TEXT NOT NULL);
+    \\CREATE TABLE entity_tag (
+    \\  entity INTEGER NOT NULL REFERENCES entity(id),
+    \\  tag TEXT NOT NULL,
+    \\  evidence TEXT NOT NULL DEFAULT '',  -- why: the sentence, the list's definition, the link
+    \\  source TEXT NOT NULL DEFAULT '',
+    \\  method TEXT NOT NULL,               -- list-default, list-text, link-hint, manual
+    \\  PRIMARY KEY (entity, tag, method)
     \\);
     \\CREATE UNIQUE INDEX entity_kind_name ON entity(kind, name COLLATE NOCASE);
     \\CREATE TABLE relation (
@@ -128,8 +139,11 @@ pub const schema =
     \\  package TEXT PRIMARY KEY,
     \\  tier TEXT NOT NULL, axis TEXT NOT NULL DEFAULT '', reason TEXT NOT NULL DEFAULT '',
     \\  sources TEXT NOT NULL DEFAULT '', alternatives TEXT NOT NULL DEFAULT '',
-    \\  date TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT ''
+    \\  date TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT '',
+    \\  entities TEXT NOT NULL DEFAULT '',   -- list entities responsible, kind:name per line
+    \\  tags TEXT NOT NULL DEFAULT ''        -- space-separated categories
     \\);
     \\CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
     \\CREATE VIRTUAL TABLE entity_fts USING fts5(name, aliases, content='entity', content_rowid='id', tokenize='trigram');
+    \\CREATE VIRTUAL TABLE entity_text USING fts5(name, aliases, description, tokenize='porter unicode61');
 ;

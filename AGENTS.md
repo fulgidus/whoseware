@@ -18,8 +18,18 @@ the rules on evidence are strict.
 - **No gray zones on lineage:** a fork of, or a project led by people from, a
   flagged project is flagged too. Universal infrastructure (kernel, libc,
   compilers, languages, Mesa) is `infra`: mentioned, never scored.
-- The lists are fetched at release time and **not redistributed**: only
-  names, relations and source links extracted from them go into the graph.
+- **Descriptions are embedded in full, with links** (the owner's decision,
+  2026-10-05, for offline search), although neither list states a licence.
+  Keep attribution everywhere the text appears (`who`, `--about`, README) and
+  **remove an author's text promptly if they ask**.
+- **Categories** (`data/tags.json`): every tag stores its reason (the
+  sentence, the list's own definition, or the cited link). Keyword tags are
+  *inferred* (`~`): they can be about someone else in the sentence, or say the
+  opposite. Review the evidence of new keyword rules on the real entries;
+  fix misfires with `suppress` (with a reason) or a hand-checked `add`, and
+  add a regression case to `ci/answers.sh`. Never state a category as fact
+  beyond what the source says. `ultracapitalism` = billionaires plus
+  labour-law violations (data sources planned); today only list text.
 
 ## Code
 
