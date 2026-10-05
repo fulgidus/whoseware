@@ -29,9 +29,25 @@ the rules on evidence are strict.
   `src/ngram.zig` (trigram vectors) and `src/db.zig` (libSQL wrapper) are
   shared. Match scoring: names need ≥ 0.80 trigram-cosine similarity.
 - **whoseware never uses the network.** The graph changes with releases.
-- `ci/check.sh` must pass before merging: it checks known answers (a hit, a
-  graph link, fuzzy matches, no noise, hook behaviour). Add a case for every
-  bug fixed.
+- `ci/check.sh` must pass before merging: unit tests plus `ci/answers.sh`,
+  the known answers (a hit, a graph link, fuzzy matches, no noise, hook
+  behaviour). Add a case to `ci/answers.sh` for every bug fixed.
+- **Releases are tested as users get them, then published**
+  (`.github/workflows/release.yml`): `ci/package.sh` makes the tarballs and
+  `ci/release-test.sh` checks the *artifacts*, not the tree: checksums, the
+  shipped binary, a build from the source tarball with no network, a real
+  `makepkg`, and (CI container only) a real `pacman -S` showing the hook fire.
+  Locally: `ci/package.sh dist && ci/release-test.sh dist` (set
+  `WHOSEWARE_REUSE_LIBSQL=1` to skip the cold libSQL build). **Never run
+  `--install` outside CI**: it changes the system. After publishing, CI builds
+  the AUR package from the AUR itself.
+- `VERSION` is the single version: `build.sh` embeds it in the binary and
+  CI fails if `--version` disagrees.
+- **A moving "latest" lives in the asset names**, not in a git tag: each
+  release carries unversioned copies (`whoseware-x86_64.tar.gz`,
+  `whoseware-src.tar.gz`), so `releases/latest/download/NAME` always resolves.
+  Consumers (jerkarchy's CI) use that URL, never a pinned version: a new
+  release that breaks a consumer is the alarm working.
 
 ## Git
 
