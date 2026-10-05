@@ -23,6 +23,9 @@ if [ ! -s build/lists/fashware.md ] || [ ! -s build/lists/weird-guys.html ]; the
     echo ":: using the shipped graph (src/gen/entities.db)"; GRAPH=0
 fi
 
+# Zig 0.17 has no @cImport: the C API is translated once per build.
+$ZIG translate-c $TARGET -lc -I vendor/libsql vendor/libsql/sqlite3.h > src/gen/sqlite3.zig
+
 # libSQL: 9.5 MB of C, compiled once.
 if [ ! -f build/libsql.o ] || [ vendor/libsql/sqlite3.c -nt build/libsql.o ]; then
     echo ":: compiling libSQL (once; ~2 minutes)"

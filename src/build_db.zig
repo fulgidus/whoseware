@@ -108,7 +108,7 @@ pub fn main(init: std.process.Init) !void {
         .upd_desc = try db.prepare("UPDATE entity SET description = CASE WHEN description = '' THEN ?1 ELSE description || char(10) || ?1 END, links = CASE WHEN links = '' THEN ?2 ELSE links || char(10) || ?2 END WHERE id = ?3"),
     };
 
-    var counts = [_]usize{0} ** 3;
+    var counts: [3]usize = @splat(0);
     if (fashware) |p| counts[0] = try parseFashware(&b, try Io.Dir.cwd().readFileAlloc(io, p, gpa, .limited(8 << 20)));
     if (weird) |p| counts[1] = try parseWeird(&b, try Io.Dir.cwd().readFileAlloc(io, p, gpa, .limited(8 << 20)));
     if (verdicts) |p| counts[2] = try loadVerdicts(&b, try Io.Dir.cwd().readFileAlloc(io, p, gpa, .limited(16 << 20)));
@@ -371,11 +371,11 @@ fn loadRelations(b: *Builder, data: []const u8) !void {
 
 /// First case-insensitive occurrence of `kw` starting at a word boundary.
 fn findKeyword(text: []const u8, kw: []const u8) ?usize {
-    var from: usize = 0;
-    while (from + kw.len <= text.len) {
-        const at = std.ascii.indexOfIgnoreCasePos(text, from, kw) orelse return null;
-        if (at == 0 or !std.ascii.isAlphanumeric(text[at - 1])) return at;
-        from = at + 1;
+    if (kw.len == 0 or kw.len > text.len) return null;
+    var at: usize = 0;
+    while (at + kw.len <= text.len) : (at += 1) {
+        if (at > 0 and std.ascii.isAlphanumeric(text[at - 1])) continue;
+        if (std.ascii.eqlIgnoreCase(text[at .. at + kw.len], kw)) return at;
     }
     return null;
 }

@@ -37,7 +37,7 @@ pub fn normalize(out: []u8, s: []const u8) []u8 {
 
 /// Hashed trigram vector of `s` (normalised to unit length; zero if too short).
 pub fn embed(s: []const u8) [dims]f32 {
-    var v = [_]f32{0} ** dims;
+    var v: [dims]f32 = @splat(0);
     var buf: [256]u8 = undefined;
     const core = normalize(buf[2 .. buf.len - 2], s);
     if (core.len == 0) return v;

@@ -1,7 +1,8 @@
 //! A thin wrapper over libSQL's C API (vendor/libsql), shared by the
 //! database builder and the CLI.
 const std = @import("std");
-pub const c = @cImport(@cInclude("sqlite3.h"));
+/// libSQL's C API, translated by build.sh (zig translate-c) into src/gen/sqlite3.zig
+pub const c = @import("gen/sqlite3.zig");
 
 pub const Db = struct {
     h: *c.sqlite3,
