@@ -1,0 +1,71 @@
+# On main: build (fetching the lists, so the graph is current), run the
+# checks, and when VERSION is new: publish the GitHub release (binary +
+# source tarball with that graph) and push the package to the AUR.
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AUR_HOSTKEY: "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: archlinux:base
+    permissions:
+      contents: write
+    steps:
+      - name: Tools
+        run: pacman -Syu --noconfirm --needed git zig curl github-cli openssh base-devel
+      - uses: actions/checkout@v4
+      - name: Build (fetches the lists) and check
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          ./build.sh --fetch
+          ci/check.sh
+      - name: Release if VERSION is new
+        id: rel
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v=$(cat VERSION)
+          if gh release view "v$v" >/dev/null 2>&1; then echo "v$v already released"; echo "new=0" >> "$GITHUB_OUTPUT"; exit 0; fi
+          # binary
+          mkdir -p "whoseware-$v-x86_64"
+          cp zig-out/whoseware hooks/whoseware.hook LICENSE README.md "whoseware-$v-x86_64/"
+          tar -czf "whoseware-$v-x86_64.tar.gz" "whoseware-$v-x86_64"
+          # source + this release's graph (no lists: they aren't redistributed)
+          git archive --prefix="whoseware-$v/" -o src.tar HEAD
+          mkdir -p "whoseware-$v/src/gen" && cp src/gen/entities.db "whoseware-$v/src/gen/"
+          tar -rf src.tar "whoseware-$v/src/gen/entities.db" && gzip -9 -c src.tar > "whoseware-$v-src.tar.gz"
+          sha256sum whoseware-$v-*.tar.gz > SHA256SUMS
+          gh release create "v$v" "whoseware-$v-x86_64.tar.gz" "whoseware-$v-src.tar.gz" SHA256SUMS \
+            --target "$GITHUB_SHA" --title "whoseware v$v" --notes "$(zig-out/whoseware --about)"
+          echo "new=1" >> "$GITHUB_OUTPUT"
+          echo "sha=$(sha256sum "whoseware-$v-src.tar.gz" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      - name: Push to the AUR
+        if: steps.rel.outputs.new == '1'
+        env:
+          KEY: ${{ secrets.AUR_SSH_KEY }}
+          SHA: ${{ steps.rel.outputs.sha }}
+        run: |
+          v=$(cat VERSION)
+          mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/aur && chmod 600 ~/.ssh/aur
+          echo "$AUR_HOSTKEY" > ~/.ssh/known_hosts
+          printf 'Host aur.archlinux.org\n  IdentityFile ~/.ssh/aur\n  User aur\n' > ~/.ssh/config
+          git clone ssh://aur@aur.archlinux.org/whoseware.git aur
+          sed -e "s/@VERSION@/$v/" -e "s/@SHA256@/'$SHA'/" pkg/PKGBUILD > aur/PKGBUILD
+          # makepkg refuses to run as root
+          useradd -m builder && chown -R builder aur
+          su builder -c "cd aur && makepkg --printsrcinfo > .SRCINFO"
+          cd aur
+          git config user.name fulgidus && git config user.email fulgidus@users.noreply.github.com
+          git add PKGBUILD .SRCINFO
+          git commit -qm "whoseware $v"
+          git push origin HEAD:master
