@@ -1,0 +1,4 @@
+build/
+zig-out/
+src/gen/
+.zig-cache/

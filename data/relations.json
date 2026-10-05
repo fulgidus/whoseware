@@ -1,0 +1,3 @@
+[
+  {"src": "package:neovim", "rel": "packages", "dst": "project:NeoVim", "source": "https://archlinux.org/packages/extra/x86_64/neovim/"}
+]

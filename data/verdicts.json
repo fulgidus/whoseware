@@ -1,0 +1,649 @@
+{
+ "version": "2026-10-05",
+ "lists": {
+  "fashware": "https://git.sr.ht/~rabbits/fashware",
+  "weird-guys": "https://drewdevault.com/weird-guys/"
+ },
+ "packages": {
+  "abiword": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "aerc": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "arduino-cli": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "audacity": {
+   "tier": "hit",
+   "axis": "governance",
+   "reason": "Muse Group's 2021 telemetry and privacy-policy rug-pull",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Audacity_(audio_editor)"
+   ],
+   "date": "2026-10-05",
+   "status": "reported",
+   "alternatives": [
+    "tenacity"
+   ]
+  },
+  "autotiling": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "base-devel": {
+   "tier": "infra",
+   "reason": "GNU build tools: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "blender": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Blender Development Fund patrons include NVIDIA, Microsoft, AMD, Intel, Facebook, Dell, Adobe (fashware list)",
+   "sources": [
+    "https://fund.blender.org/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none comparable"
+   ]
+  },
+  "blueman": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "brave": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "led by Brendan Eich (weird-guys and fashware lists)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none: every engine is Mozilla's, Google's or Apple's"
+   ]
+  },
+  "chezmoi": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "chromium": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Google project; Google is on the fashware list",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none: every engine is Mozilla's, Google's or Apple's"
+   ]
+  },
+  "code": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Code - OSS: Microsoft is on the fashware list",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "helix",
+    "vim"
+   ]
+  },
+  "dmenu": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "suckless.org is on the fashware list; Laslo Hunhold on weird-guys",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "fuzzel",
+    "wezterm"
+   ]
+  },
+  "docker": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "docker-buildx": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "docker-compose": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "dwl": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "suckless.org is on the fashware list; Laslo Hunhold on weird-guys",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "fuzzel",
+    "wezterm"
+   ]
+  },
+  "dwm": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "suckless.org is on the fashware list; Laslo Hunhold on weird-guys",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "fuzzel",
+    "wezterm"
+   ]
+  },
+  "element-desktop": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Element is on the fashware list (defence sector)",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "emacs": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "GNU/FSF: Richard M. Stallman is on the weird-guys list",
+   "sources": [
+    "https://drewdevault.com/weird-guys/"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "helix",
+    "vim"
+   ]
+  },
+  "ffmpeg": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "firefox": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Mozilla co-founder Brendan Eich is on the weird-guys list (and the fashware list)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none: every engine is Mozilla's, Google's or Apple's"
+   ]
+  },
+  "fish": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "foot": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "fuzzel": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "gamemode": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "gcc": {
+   "tier": "infra",
+   "reason": "GNU toolchain: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "ghostty": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "creator Mitchell Hashimoto is on the weird-guys list",
+   "sources": [
+    "https://drewdevault.com/weird-guys/"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "wezterm",
+    "foot"
+   ]
+  },
+  "gimp": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "glibc": {
+   "tier": "infra",
+   "reason": "GNU C library: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "gnumeric": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "go": {
+   "tier": "infra",
+   "reason": "language (Google): universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "greetd": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "greetd-tuigreet": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "gtklock": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "helix": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "hyprland": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "founder Rafał Kucharski (Vaxry) is on both lists",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "niri"
+   ]
+  },
+  "imagemagick": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "inkscape": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "jq": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "kicad": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "ladybird": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "founder Andreas Kling is on both lists",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "libreoffice-fresh": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "forked from OpenOffice.org while Oracle owned it; Oracle is on the fashware list",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "gnumeric",
+    "abiword"
+   ]
+  },
+  "libreoffice-still": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "forked from OpenOffice.org while Oracle owned it; Oracle is on the fashware list",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "gnumeric",
+    "abiword"
+   ]
+  },
+  "librewolf": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "a Firefox fork: Mozilla co-founder Brendan Eich is on the weird-guys list (and the fashware list)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none: every engine is Mozilla's, Google's or Apple's"
+   ]
+  },
+  "linux": {
+   "tier": "infra",
+   "reason": "the kernel: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "lutris": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "mako": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "mangohud": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "mesa": {
+   "tier": "infra",
+   "reason": "graphics drivers: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "mise": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "sponsored by the Omacom Foundation (Omarchy; DHH is on both lists)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "neovim": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "maintainer Justin M. Keyes is on the weird-guys list (co-maintainer TJ DeVries spoke at Omacon 2026)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "helix",
+    "vim"
+   ]
+  },
+  "niri": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "nodejs": {
+   "tier": "infra",
+   "reason": "language runtime: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "nwg-drawer": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "nwg-hello": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "platformio-core": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "podman": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Red Hat → IBM; IBM is on the fashware list",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "docker"
+   ]
+  },
+  "python": {
+   "tier": "infra",
+   "reason": "language: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "rust": {
+   "tier": "infra",
+   "reason": "language: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "shellcheck": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "shotcut": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "slock": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "suckless.org is on the fashware list; Laslo Hunhold on weird-guys",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "fuzzel",
+    "wezterm"
+   ]
+  },
+  "st": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "suckless.org is on the fashware list; Laslo Hunhold on weird-guys",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "sway",
+    "fuzzel",
+    "wezterm"
+   ]
+  },
+  "starship": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "steam": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "sway": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "swayfx": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "swayidle": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "swaylock": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "systemd": {
+   "tier": "infra",
+   "reason": "init: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "tenacity": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "thunar": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "thunderbird": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "Mozilla co-founder Brendan Eich is on the weird-guys list (and the fashware list)",
+   "sources": [
+    "https://drewdevault.com/weird-guys/",
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "aerc",
+    "neomutt"
+   ]
+  },
+  "vim": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "vivaldi": {
+   "tier": "hit",
+   "axis": "adjacency",
+   "reason": "built on Chromium (Google, fashware list); its UI is closed source",
+   "sources": [
+    "https://git.sr.ht/~rabbits/fashware"
+   ],
+   "date": "2026-10-05",
+   "status": "verified",
+   "alternatives": [
+    "none: every engine is Mozilla's, Google's or Apple's"
+   ]
+  },
+  "waybar": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "wezterm": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "wine": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "wiremix": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "wlroots0.20": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "zathura": {
+   "tier": "clean",
+   "date": "2026-10-05",
+   "status": "verified"
+  },
+  "zig": {
+   "tier": "infra",
+   "reason": "language: universal infrastructure, mentioned not scored",
+   "date": "2026-10-05",
+   "status": "verified"
+  }
+ }
+}

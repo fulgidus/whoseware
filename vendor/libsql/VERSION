@@ -1,0 +1,2 @@
+libSQL 0.2.3 (tursodatabase/libsql, main as of 2026-10-05), amalgamated with
+`./configure --enable-fts5 && make sqlite3.c`. MIT; SQLite parts public domain.

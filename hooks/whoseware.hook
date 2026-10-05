@@ -1,0 +1,13 @@
+# whoseware: after installing or upgrading packages, say which of them are on
+# the fashware lists (or linked to someone who is). Informs; never blocks.
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Checking who's behind the new packages (whoseware)...
+When = PostTransaction
+Exec = /usr/bin/whoseware --pacman-hook
+NeedsTargets
