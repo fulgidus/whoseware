@@ -14,8 +14,13 @@ if [ "${1:-}" = --fetch ]; then
     curl -fsSL -o build/lists/fashware.md https://git.sr.ht/~rabbits/fashware/blob/main/README.md
     curl -fsSL -o build/lists/weird-guys.html https://drewdevault.com/weird-guys/
 fi
-[ -s build/lists/fashware.md ] && [ -s build/lists/weird-guys.html ] ||
-    { echo "build.sh: no lists in build/lists (run ./build.sh --fetch)" >&2; exit 1; }
+# A release source tarball ships its graph (src/gen/entities.db) and no
+# lists: build from that as-is (the AUR package does).
+GRAPH=1
+if [ ! -s build/lists/fashware.md ] || [ ! -s build/lists/weird-guys.html ]; then
+    [ -s src/gen/entities.db ] || { echo "build.sh: no lists in build/lists and no graph (run ./build.sh --fetch)" >&2; exit 1; }
+    echo ":: using the shipped graph (src/gen/entities.db)"; GRAPH=0
+fi
 
 # libSQL: 9.5 MB of C, compiled once.
 if [ ! -f build/libsql.o ] || [ vendor/libsql/sqlite3.c -nt build/libsql.o ]; then
@@ -25,10 +30,12 @@ if [ ! -f build/libsql.o ] || [ vendor/libsql/sqlite3.c -nt build/libsql.o ]; th
         vendor/libsql/sqlite3.c -femit-bin=build/libsql.o
 fi
 
-echo ":: building the entity graph"
-$ZIG build-exe $TARGET -O ReleaseSafe -I vendor/libsql src/build_db.zig build/libsql.o -lc -femit-bin=build/build_db
-build/build_db --out src/gen/entities.db --verdicts data/verdicts.json --relations data/relations.json \
-    --fashware build/lists/fashware.md --weird-guys build/lists/weird-guys.html
+if [ "$GRAPH" = 1 ]; then
+    echo ":: building the entity graph"
+    $ZIG build-exe $TARGET -O ReleaseSafe -I vendor/libsql src/build_db.zig build/libsql.o -lc -femit-bin=build/build_db
+    build/build_db --out src/gen/entities.db --verdicts data/verdicts.json --relations data/relations.json \
+        --fashware build/lists/fashware.md --weird-guys build/lists/weird-guys.html
+fi
 
 echo ":: building whoseware"
 $ZIG build-exe $TARGET -O ReleaseSafe -I vendor/libsql src/main.zig build/libsql.o -lc -femit-bin=zig-out/whoseware
