@@ -9,6 +9,7 @@ cd "$(dirname "$0")"
 ZIG=${ZIG:-zig}
 TARGET="-target x86_64-linux-gnu"
 mkdir -p build/lists zig-out src/gen
+cp VERSION src/gen/version.txt
 
 if [ "${1:-}" = --fetch ]; then
     curl -fsSL -o build/lists/fashware.md https://git.sr.ht/~rabbits/fashware/blob/main/README.md
