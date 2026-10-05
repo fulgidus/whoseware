@@ -1,0 +1,165 @@
+{
+  "_about": "Category rules for whoseware. Each tag on an entity records WHY (the sentence, the list's own definition, or the source link). Keyword matches are case-insensitive and start at a word boundary ('racis' matches 'racist'). Edit here, not in the code; 'suppress' removes a wrong tag, 'add' adds a sourced one. 'suppress' entries say why; they never remove a tag added by hand in 'add'.",
+  "tags": {
+    "fascism": {
+      "title": "Fascism / far right",
+      "description": "dictatorial or authoritarian politics, far-right movements, 'dark enlightenment' and neoreaction"
+    },
+    "racism": {
+      "title": "Racism",
+      "description": "racism, antisemitism, white-supremacist and ethno-nationalist views or funding"
+    },
+    "bigotry": {
+      "title": "Other bigotry",
+      "description": "transphobia, homophobia, misogyny"
+    },
+    "militarism": {
+      "title": "Militarism",
+      "description": "arms makers, war profiteering, military and border-enforcement contracting, advocacy of war"
+    },
+    "surveillance": {
+      "title": "Surveillance",
+      "description": "mass surveillance, spyware, face recognition, data brokering"
+    },
+    "ultracapitalism": {
+      "title": "Ultracapitalism",
+      "description": "billionaires, and companies with serious labour-law violations (the wealth and penalty data arrive in a later release; for now only what the lists say)"
+    },
+    "misconduct": {
+      "title": "Misconduct",
+      "description": "harassment, abuse, fraud, rug-pulls and similar conduct"
+    }
+  },
+  "list_defaults": {
+    "fashware": {
+      "tags": [
+        "fascism"
+      ],
+      "evidence": "The fashware list defines its subject: \"Fascism is characterized by its support for a dictatorial leader, centralized autocracy, militarism, forcible suppression of opposition\""
+    },
+    "weird-guys": {
+      "tags": [],
+      "evidence": ""
+    }
+  },
+  "keywords": {
+    "fascism": [
+      "fascis",
+      "nazi",
+      "far-right",
+      "far right",
+      "alt-right",
+      "dark enlightenment",
+      "neoreaction",
+      "truth social"
+    ],
+    "racism": [
+      "racis",
+      "white supremac",
+      "white nationalis",
+      "great replacement",
+      "white replacement",
+      "antisemit",
+      "anti-semit",
+      "eugenic",
+      "ethnic cleansing",
+      "expulsion of non-white",
+      "race realis",
+      "white genocide"
+    ],
+    "bigotry": [
+      "transphob",
+      "homophob",
+      "misogyn",
+      "sexist",
+      "anti-lgbt",
+      "anti-trans",
+      "misgender",
+      "proposition 8",
+      "disposition to homosexuality"
+    ],
+    "militarism": [
+      "militar",
+      "war criminal",
+      "warmonger",
+      "defense contract",
+      "defence contract",
+      "pentagon",
+      "weapon",
+      "arms manufactur",
+      "immigration and customs"
+    ],
+    "surveillance": [
+      "surveillance",
+      "face recognition",
+      "facial recognition",
+      "spyware",
+      "data broker"
+    ],
+    "ultracapitalism": [
+      "billionaire",
+      "multi-millionaire",
+      "multimillionaire",
+      "union-busting",
+      "union busting"
+    ],
+    "misconduct": [
+      "harass",
+      "abus",
+      "assault",
+      "doxx",
+      "rug pull",
+      "rug-pull",
+      "scam",
+      "fraud",
+      "pump and dump",
+      "stalk"
+    ]
+  },
+  "link_hints": {
+    "investigate.afsc.org": [
+      "militarism"
+    ],
+    "notechforapartheid.com": [
+      "militarism"
+    ],
+    "bdsmovement.net": [
+      "militarism"
+    ]
+  },
+  "add": [
+    {
+      "entity": "person:Justin M. Keyes",
+      "tag": "fascism",
+      "source": "https://drewdevault.com/weird-guys/#justinmk",
+      "evidence": "Justin had a YouTube playlist full of right-wing propaganda up until the DHH debate on GitHub, including sources from Curtis Yarvin and Peter Thiel."
+    }
+  ],
+  "suppress": [
+    {
+      "entity": "person:Laslo Hunhold",
+      "tag": "fascism",
+      "why": "the sentence says he pushed suckless to denounce fascism and Nazism"
+    },
+    {
+      "entity": "person:Curtis Yarvin",
+      "tag": "surveillance",
+      "why": "the sentence is about Peter Thiel's Palantir, not Yarvin"
+    },
+    {
+      "entity": "person:Guillermo Rauch",
+      "tag": "militarism",
+      "why": "the sentence is about a meeting with another person"
+    },
+    {
+      "entity": "person:Justin M. Keyes",
+      "tag": "fascism",
+      "why": "the sentence calls DHH's endorsement fascist, not Keyes (re-added below with the right sentence)"
+    },
+    {
+      "entity": "person:Andreas Kling",
+      "tag": "fascism",
+      "why": "the sentence is about the phrase 'punch nazis'"
+    }
+  ]
+}
