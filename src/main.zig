@@ -22,7 +22,8 @@ const Io = std.Io;
 const ngram = @import("ngram.zig");
 const dbm = @import("db.zig");
 
-const version = "0.1.0";
+// build.sh copies VERSION here, so the binary can't disagree with the release.
+const version = std.mem.trim(u8, @embedFile("gen/version.txt"), " \n");
 const image = @embedFile("gen/entities.db");
 const min_similarity = 0.80;
 
@@ -75,10 +76,12 @@ pub fn main(init: std.process.Init) !void {
     for (argv[1..]) |raw| {
         const a = std.mem.span(raw);
         if (std.mem.eql(u8, a, "--help") or std.mem.eql(u8, a, "-h")) {
-            std.debug.print("{s}", .{usage});
+            try Io.File.stdout().writeStreamingAll(io, usage);
             return;
         } else if (std.mem.eql(u8, a, "--version")) {
-            std.debug.print("whoseware {s}\n", .{version});
+            try Io.File.stdout().writeStreamingAll(io, "whoseware " ++ "");
+            try Io.File.stdout().writeStreamingAll(io, version);
+            try Io.File.stdout().writeStreamingAll(io, "\n");
             return;
         } else if (std.mem.eql(u8, a, "--fail-on-hit")) fail_on_hit = true
         else if (std.mem.eql(u8, a, "--system")) system = true

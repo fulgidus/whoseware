@@ -1,6 +1,18 @@
-# On main: build (fetching the lists, so the graph is current), run the
-# checks, and when VERSION is new: publish the GitHub release (binary +
-# source tarball with that graph) and push the package to the AUR.
+# On main (the Forgejo push mirror delivers it): build with fresh lists, test
+# everything, and only then publish.
+#
+#   build + ci/check.sh            unit tests, known answers on the fresh binary
+#   ci/package.sh                  the release tarballs
+#   ci/release-test.sh --install   the tarballs as users get them: checksums,
+#                                  shipped binary, build from the source
+#                                  tarball with no network, makepkg, and a real
+#                                  `pacman -S neovim` showing the hook fire
+#   publish (VERSION is new)       GitHub release, versioned + unversioned files
+#   AUR (AUR is behind VERSION)    push the package
+#   verify                         clone the AUR package and build it from there
+#
+# Needs the secret AUR_SSH_KEY: a passphrase-less private key whose public half
+# is on the AUR account.
 name: release
 
 on:
@@ -23,32 +35,35 @@ jobs:
     steps:
       - name: Tools
         run: pacman -Syu --noconfirm --needed git zig curl github-cli openssh base-devel
+
       - uses: actions/checkout@v4
+
       - name: Build (fetches the lists) and check
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           ./build.sh --fetch
           ci/check.sh
-      - name: Release if VERSION is new
-        id: rel
+
+      - name: Package
+        run: ci/package.sh dist
+
+      - name: Test the release artifacts
+        run: ci/release-test.sh dist --install
+
+      - name: Publish the release if VERSION is new
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           v=$(cat VERSION)
-          if gh release view "v$v" >/dev/null 2>&1; then echo "v$v already released"; echo "new=0" >> "$GITHUB_OUTPUT"; exit 0; fi
-          # binary
-          mkdir -p "whoseware-$v-x86_64"
-          cp zig-out/whoseware hooks/whoseware.hook LICENSE README.md "whoseware-$v-x86_64/"
-          tar -czf "whoseware-$v-x86_64.tar.gz" "whoseware-$v-x86_64"
-          # source + this release's graph (no lists: they aren't redistributed)
-          git archive --prefix="whoseware-$v/" -o src.tar HEAD
-          mkdir -p "whoseware-$v/src/gen" && cp src/gen/entities.db "whoseware-$v/src/gen/"
-          tar -rf src.tar "whoseware-$v/src/gen/entities.db" && gzip -9 -c src.tar > "whoseware-$v-src.tar.gz"
-          sha256sum whoseware-$v-*.tar.gz > SHA256SUMS
-          gh release create "v$v" "whoseware-$v-x86_64.tar.gz" "whoseware-$v-src.tar.gz" SHA256SUMS \
-            --target "$GITHUB_SHA" --title "whoseware v$v" --notes "$(zig-out/whoseware --about)"
-          echo "new=1" >> "$GITHUB_OUTPUT"
-          echo "sha=$(sha256sum "whoseware-$v-src.tar.gz" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          if gh release view "v$v" >/dev/null 2>&1; then echo "v$v already released"; exit 0; fi
+          notes="Install: \`yay -S whoseware\` (installs the pacman hook), or take \`whoseware-x86_64.tar.gz\` below.
+          The newest release is always at https://github.com/$GITHUB_REPOSITORY/releases/latest/download/whoseware-x86_64.tar.gz
+
+          \`\`\`
+          $(zig-out/whoseware --about)
+          \`\`\`"
+          gh release create "v$v" dist/*.tar.gz dist/SHA256SUMS --target "$GITHUB_SHA" --title "whoseware v$v" --notes "$notes"
+
       # Runs whenever the AUR is behind VERSION (also after a failed push).
       - name: Push to the AUR
         env:
@@ -58,7 +73,7 @@ jobs:
           v=$(cat VERSION)
           aur=$(curl -fsS "https://aur.archlinux.org/rpc/v5/info?arg[]=whoseware" | sed -n 's/.*"Version":"\([^"]*\)".*/\1/p')
           if [ "$aur" = "$v-1" ]; then echo "AUR already has $aur"; exit 0; fi
-          # the source tarball's checksum, from the release (this run or an earlier one)
+          # the source tarball's checksum, as published
           SHA=$(gh release download "v$v" -p SHA256SUMS -O - | awk -v f="whoseware-$v-src.tar.gz" '$2 == f {print $1}')
           [ -n "$SHA" ] || { echo "no checksum for whoseware-$v-src.tar.gz"; exit 1; }
           # In containers $HOME isn't root's home, which is where ssh looks:
@@ -70,7 +85,8 @@ jobs:
           git clone ssh://aur@aur.archlinux.org/whoseware.git aur
           sed -e "s/@VERSION@/$v/" -e "s/@SHA256@/'$SHA'/" pkg/PKGBUILD > aur/PKGBUILD
           # makepkg refuses to run as root
-          useradd -m builder && chown -R builder aur
+          id builder >/dev/null 2>&1 || useradd -m builder
+          chown -R builder aur
           su builder -c "cd aur && makepkg --printsrcinfo > .SRCINFO"
           git config --global --add safe.directory "$PWD/aur"   # now owned by builder
           cd aur
@@ -78,3 +94,14 @@ jobs:
           git add PKGBUILD .SRCINFO
           git commit -qm "whoseware $v"
           git push origin HEAD:master
+
+      - name: Verify the package as the AUR serves it
+        run: |
+          v=$(cat VERSION)
+          rm -rf aur-check && git clone -q https://aur.archlinux.org/whoseware.git aur-check
+          grep -q "pkgver = $v" aur-check/.SRCINFO || { echo "the AUR doesn't have $v"; exit 1; }
+          id builder >/dev/null 2>&1 || useradd -m builder
+          chown -R builder aur-check
+          # builds from the release download: the real thing a user runs
+          su builder -c "cd aur-check && makepkg -f --noconfirm"
+          ls aur-check/*.pkg.tar.zst
